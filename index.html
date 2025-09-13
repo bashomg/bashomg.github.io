@@ -58,7 +58,10 @@
   .cbody{margin:2px 0 0}
 
   /* Startup screen */
-  #start{position:fixed;inset:0;background:radial-gradient(1200px 600px at 20% 20%, rgba(29,210,195,.10), transparent 60%), radial-gradient(900px 600px at 80% 70%, rgba(143,241,233,.08), transparent 60%), linear-gradient(180deg,var(--bg),var(--bg2)); display:grid;place-items:center;z-index:100}
+  #start{position:fixed;inset:0;background:
+    radial-gradient(1200px 600px at 20% 20%, rgba(29,210,195,.10), transparent 60%),
+    radial-gradient(900px 600px at 80% 70%, rgba(143,241,233,.08), transparent 60%),
+    linear-gradient(180deg,var(--bg),var(--bg2)); display:grid;place-items:center;z-index:100}
   .start-wrap{max-width:980px;width:94vw}
   .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center}
   .heroCard{background:#0a1113d9;border:1px solid var(--border);padding:18px;border-radius:16px}
@@ -263,6 +266,7 @@ const pthumb = $('#pthumb'), ptitle = $('#ptitle'), partist = $('#partist');
 const cThumb = $('#cThumb'), cTitle = $('#cTitle'), cArtist = $('#cArtist');
 const cList = $('#cList'), cForm = $('#cForm'), cName = $('#cName'), cBody = $('#cBody'), cClose = $('#cClose');
 
+/* === State === */
 let ADMIN_ENABLED = false;
 let TRACKS = [];
 let FILTER = '';
@@ -272,7 +276,21 @@ let currentCommentsPoll = null;
 let user = null;     // Supabase user object
 const audio = new Audio(); audio.preload='metadata'; audio.crossOrigin='anonymous'; vol.value=1;
 
-/* Background darken loop (every 10s, subtle) */
+/* === STARTUP BACKGROUND MUSIC === */
+const BGM_URL = "https://bashomg.github.io/waveeAmb.mp3";
+const bgm = new Audio(BGM_URL);
+bgm.loop = true;
+bgm.volume = 0.05; // low volume
+bgm.preload = 'auto';
+function tryPlayBgm(){ bgm.play().catch(()=>{}); }
+document.addEventListener('DOMContentLoaded', tryPlayBgm);
+if (start) {
+  const unlockBgm = () => { try{ bgm.volume=0.05; bgm.play(); }catch{} start.removeEventListener('pointerdown', unlockBgm); };
+  start.addEventListener('pointerdown', unlockBgm);
+}
+function stopBgm(){ try { bgm.pause(); bgm.currentTime = 0; } catch {} }
+
+/* Fade background slightly darker every 10s */
 let fadeStep = 0;
 setInterval(()=>{
   fadeStep = (fadeStep + 1) % 6; // 0..5
@@ -309,7 +327,7 @@ doLogin.addEventListener('click', async ()=>{
   try{ 
     const { error } = await sb.auth.signInWithPassword({ email: emailIn.value.trim(), password: pwIn.value });
     if (error) throw error;
-    start.style.display='none'; toast('Welcome back!');
+    start.style.display='none'; stopBgm(); toast('Welcome back!');
     refreshUser(); 
   }catch(e){ toast('Login failed: '+e.message); }
 });
@@ -317,12 +335,12 @@ doSignup.addEventListener('click', async ()=>{
   try{ 
     const { error } = await sb.auth.signUp({ email: emailIn.value.trim(), password: pwIn.value });
     if (error) throw error;
-    start.style.display='none'; toast('Account created!');
+    start.style.display='none'; stopBgm(); toast('Account created!');
     refreshUser();
   }catch(e){ toast('Signup failed: '+e.message); }
 });
-continueGuest.addEventListener('click', ()=>{ start.style.display='none'; toast('Browsing as guest'); });
-authBtn.addEventListener('click', ()=>{ start.style.display='grid'; });
+continueGuest.addEventListener('click', ()=>{ start.style.display='none'; stopBgm(); toast('Browsing as guest'); });
+authBtn.addEventListener('click', ()=>{ start.style.display='grid'; tryPlayBgm(); });
 logoutBtn.addEventListener('click', async ()=>{ await sb.auth.signOut(); ADMIN_ENABLED=false; statusPill.textContent='Guest'; uploadFab.style.display='none'; toast('Logged out'); refreshUser(); });
 
 /* Admin unlock (password only) */
@@ -350,12 +368,14 @@ async function loadTracks(){
 }
 loadTracks(); setInterval(loadTracks, 5000);
 
-/* Render */
+/* Permissions */
 function canDeleteTrack(t){
   if (ADMIN_ENABLED) return true;
   if (!user) return false;
   return t.owner_uid && t.owner_uid === user.id;
 }
+
+/* Render */
 function render(){
   const q = FILTER.trim().toLowerCase();
   const items = !q ? TRACKS : TRACKS.filter(t =>
@@ -485,14 +505,11 @@ async function deleteTrack(id){
       const rpc = await sb.rpc('delete_track', { pw_client: PASSWORD, p_id: id });
       if (rpc.error) throw new Error('RPC delete_track: ' + rpc.error.message);
     } else {
-      // owner delete via RLS policy
       const del = await sb.from('tracks').delete().eq('id', id);
       if (del.error) throw new Error('Delete track: ' + del.error.message);
     }
-    // UI
     const card = document.querySelector(`.card[data-id="${id}"]`); if (card) card.remove();
     TRACKS = TRACKS.filter(x=>x.id!==id); toast('Deleted');
-    // try files
     await sb.storage.from('audio').remove([`audio/${id}.mp3`,`audio/${id}.wav`,`thumbs/${id}.png`]);
     loadTracks();
   }catch(err){ console.error(err); toast(String(err.message||err)); }
@@ -512,7 +529,6 @@ async function openComments(trackId){
   currentCommentsPoll = setInterval(()=>loadComments(trackId), 5000);
 }
 cClose.addEventListener('click', ()=>{ cModal.classList.remove('open'); if (currentCommentsPoll) clearInterval(currentCommentsPoll); });
-
 async function loadComments(trackId){
   const { data, error } = await sb.from('comments').select('*').eq('track_id', trackId).order('created_at',{ascending:true});
   if (error) { console.error(error); return; }
@@ -575,7 +591,6 @@ plList.addEventListener('click', async (e)=>{
     try{ const ins = await sb.from('playlist_items').insert({ playlist_id: plId, track_id: currentTrack.id }); if (ins.error) throw ins.error; toast('Added to playlist'); }
     catch(err){ console.error(err); toast('Add failed'); }
   } else if (e.target.closest('.viewpl')){
-    // Simple view: filter grid to this playlist
     try{
       const { data, error } = await sb.from('playlist_items').select('track_id, tracks(*)').eq('playlist_id', plId).order('added_at',{ascending:true});
       if (error) throw error;
@@ -616,12 +631,11 @@ function dataURLtoBlob(dataURL){
   for (let i=0;i<len;i++) arr[i]=bin.charCodeAt(i); return new Blob([arr], {type:mime});
 }
 
-/* Wire up global events */
+/* Shortcuts */
 window.addEventListener('keydown', e=>{
   if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
   if (e.code==='Slash' && !e.shiftKey){ e.preventDefault(); search.focus(); }
 });
-search.addEventListener('input', ()=>{ FILTER = search.value; render(); });
 
 /* Startup: get session & refresh user */
 sb.auth.getSession().then(()=>refreshUser());
