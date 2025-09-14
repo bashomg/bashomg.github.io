@@ -8,40 +8,48 @@
   :root{
     --bg:#070a0b; --bg2:#0b1113; --card:#0e1518; --text:#eaffff; --muted:#a7cbd1;
     --border:#122026; --accent:#1dd2c3; --accent-2:#8ff1e9; --ring:rgba(29,210,195,.28);
+    --shadow: 0 12px 30px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{margin:0;background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);font:15px/1.5 system-ui,Segoe UI,Inter,Arial;transition:filter 2s ease}
-  header{position:sticky;top:0;z-index:10;background:#060a0de6;padding:10px 12px;border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
-  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .logo{height:28px;border-radius:6px;border:1px solid var(--border);background:#000}
-  .input{padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:#0a1214;color:var(--text);outline:none}
+  body{margin:0;background:
+    radial-gradient(900px 600px at 12% 10%, rgba(29,210,195,.07), transparent 60%),
+    radial-gradient(1200px 700px at 85% 80%, rgba(143,241,233,.06), transparent 60%),
+    linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);font:15px/1.55 system-ui,Segoe UI,Inter,Arial;transition:filter 2s ease}
+  header{position:sticky;top:0;z-index:10;background:#04080bd6;padding:10px 14px;border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .left{display:flex;align-items:center;gap:10px;min-width:0}
+  .logo{height:30px;border:none;border-radius:6px;background:#000} /* no border */
+  #viewing{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--accent-2);font-size:13px}
+
+  .input{padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:#0a1214;color:var(--text);outline:none;min-width:190px}
   .input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--ring)}
-  .btn{background:#0f181b;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:10px 14px;cursor:pointer}
-  .btn:hover{border-color:#1c2d34}
+  .btn{background:#0f181b;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:10px 14px;cursor:pointer;box-shadow:none}
+  .btn:hover{border-color:#20333a}
   .btn.primary{background:var(--accent);border-color:transparent;color:#042f2c;font-weight:800}
   .btn.ghost{background:transparent;border-color:#1b2a30}
-  .btn.danger{background:transparent;border-color:var(--accent);color:var(--accent);font-weight:800}
+  .btn.danger{background:transparent;border:1px solid var(--accent);color:var(--accent);font-weight:800}
   .pill{font-size:12px;padding:4px 8px;border-radius:999px;background:#0c1619;border:1px solid var(--border);color:var(--muted)}
-  .grid{display:grid;gap:14px;padding:14px 16px 140px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .grid{display:grid;gap:16px;padding:16px 16px 190px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+  .card{background:linear-gradient(180deg, #0b1316, #0c1316);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
   .thumb{width:100%;aspect-ratio:1.6/1;object-fit:cover;background:#0e1518}
-  .meta{padding:10px 12px}
-  .title{font-weight:900;font-size:14px;margin:0 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .meta{padding:12px}
+  .title{font-weight:900;font-size:15px;margin:0 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .artist{color:var(--muted);font-size:12px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .row-tight{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .row-tight{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
   .hr{height:1px;background:var(--border);margin:10px 0}
 
   /* Player */
-  .player{position:fixed;left:0;right:0;bottom:0;background:#081114;border-top:1px solid var(--border);display:flex;gap:10px;padding:10px 14px;align-items:center}
-  .pthumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:#0a1316;border:1px solid var(--border)}
+  .player{position:fixed;left:0;right:0;bottom:0;background:#071015;border-top:1px solid var(--border);display:flex;gap:12px;padding:10px 16px;align-items:center;box-shadow:0 -10px 30px rgba(0,0,0,.35)}
+  .pthumb{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#0a1316;border:1px solid var(--border)}
   .time{font-variant-numeric:tabular-nums;font-size:12px;color:var(--accent-2)}
   input[type="range"]{accent-color:var(--accent)}
+  #viz{height:38px;flex:1;border-radius:10px;background:#0b1417;border:1px solid var(--border)}
 
-  /* Modals */
+  /* Modals / Panels */
   .modal{position:fixed;inset:0;display:none;place-items:center;z-index:60}
   .modal.open{display:grid}
-  .panel{width:min(900px,96vw);background:#0c1316;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+  .panel{width:min(980px,96vw);background:#0c1316;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
   .muted{color:var(--muted);font-size:13px;margin:6px 0 0}
   .drop{border:1.5px dashed #1d2b31;border-radius:14px;padding:14px;text-align:center;background:#0b1214;margin-top:8px}
   .drop.drag{border-color:var(--accent);background:#0b1416}
@@ -49,12 +57,9 @@
   /* Comments */
   .c-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
   .c-head img{width:48px;height:48px;border-radius:8px;border:1px solid var(--border);object-fit:cover}
-  .c-title{font-weight:900;margin:0}
-  .c-artist{margin:0;color:var(--muted);font-size:13px}
   .clist{display:flex;flex-direction:column;gap:10px;max-height:50vh;overflow:auto;margin:10px 0}
   .citem{display:flex;gap:10px;background:#0e1619;border:1px solid var(--border);padding:10px;border-radius:12px}
   .cmeta{color:var(--accent);font-size:12px}
-  .cbody{margin:2px 0 0}
 
   /* Startup screen */
   #start{position:fixed;inset:0;background:
@@ -63,7 +68,7 @@
     linear-gradient(180deg,var(--bg),var(--bg2)); display:grid;place-items:center;z-index:100}
   .start-wrap{max-width:980px;width:94vw}
   .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center}
-  .heroCard{background:#0a1113d9;border:1px solid var(--border);padding:18px;border-radius:16px}
+  .heroCard{background:#0a1113d9;border:1px solid var(--border);padding:18px;border-radius:16px;box-shadow:var(--shadow)}
   .big{font-size:36px;line-height:1.15;margin:0 0 10px;font-weight:900;letter-spacing:.2px}
   .pulse{animation:pulse 2.2s ease-in-out infinite}
   @keyframes pulse{0%{filter:brightness(1)}50%{filter:brightness(1.12)}100%{filter:brightness(1)}}
@@ -81,21 +86,41 @@
   .tcard{background:#0f181b;border:1px solid var(--border);padding:10px;border-radius:12px}
   .sw{width:20px;height:20px;border-radius:6px;border:1px solid var(--border);display:inline-block;margin-right:4px}
 
-  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;background:#0c1316;color:#cffff7;border:1px solid #1a2a30;padding:10px 14px;border-radius:12px;display:none;z-index:120}
-  .adminFab{position:fixed;right:16px;bottom:90px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.35);z-index:50}
+  /* Community / Profile */
+  .plist-compact{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:10px}
+  .pitem{display:flex;align-items:center;gap:10px;background:#0f181b;border:1px solid var(--border);padding:10px;border-radius:12px}
+  .pitem img{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);object-fit:cover;background:#000}
+
+  .profileHead{display:flex;gap:14px;align-items:center}
+  .profileHead img{width:70px;height:70px;border-radius:14px;border:1px solid var(--border);object-fit:cover;background:#000}
+  .chipbar{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .chip{padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:#0f181b;cursor:pointer}
+  .chip.active{outline:2px solid var(--accent)}
+
+  .queueBtn{position:fixed;right:16px;bottom:170px;z-index:50}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:#0c1316;color:#cffff7;border:1px solid #1a2a30;padding:10px 14px;border-radius:12px;display:none;z-index:120;box-shadow:var(--shadow)}
+  .adminFab{position:fixed;right:16px;bottom:110px;border-radius:999px;box-shadow:var(--shadow);z-index:50}
 </style>
 </head>
 <body>
   <header>
-    <div class="row">
-      <img class="logo" src="https://raw.githubusercontent.com/bashomg/bashomg.github.io/refs/heads/main/WaveeLogo.png" alt="Wavee Logo">
-      <input id="search" class="input" placeholder="Search title or artist…"/>
-      <span id="status" class="pill">Guest</span>
-      <button id="playlistsBtn" class="btn">Playlists</button>
-      <button id="themeBtn" class="btn">Themes</button>
-      <button id="adminBtn" class="btn primary">Admin</button>
-      <button id="authBtn" class="btn">Login</button>
-      <button id="logoutBtn" class="btn" style="display:none">Logout</button>
+    <div class="row" style="justify-content:space-between">
+      <div class="left">
+        <img class="logo" src="https://raw.githubusercontent.com/bashomg/bashomg.github.io/refs/heads/main/WaveeLogo.png" alt="Wavee Logo">
+        <span id="viewing">Now Viewing – All Tracks</span>
+      </div>
+      <div class="row">
+        <input id="search" class="input" placeholder="Search title or artist…"/>
+        <span id="status" class="pill">Guest</span>
+        <img id="avatar" src="" alt="" style="width:28px;height:28px;border-radius:999px;border:1px solid var(--border);display:none">
+        <button id="communityBtn" class="btn">Community</button>
+        <button id="profileBtn" class="btn">Profile</button>
+        <button id="playlistsBtn" class="btn">Playlists</button>
+        <button id="themeBtn" class="btn">Themes</button>
+        <button id="adminBtn" class="btn primary">Admin</button>
+        <button id="authBtn" class="btn">Login</button>
+        <button id="logoutBtn" class="btn" style="display:none">Logout</button>
+      </div>
     </div>
   </header>
 
@@ -109,11 +134,18 @@
       <p id="partist" style="margin:0;color:var(--accent-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">—</p>
     </div>
     <button id="playPause" class="btn">Play</button>
+    <button id="prev" class="btn ghost">Prev</button>
+    <button id="next" class="btn ghost">Next</button>
+    <button id="shuffle" class="btn ghost" title="Shuffle">Shuffle</button>
+    <button id="repeat" class="btn ghost" title="Repeat">Repeat</button>
     <button id="addToPl" class="btn ghost">Add to Playlist</button>
+    <button id="addToQueue" class="btn ghost">Add to Queue</button>
+    <button id="playAll" class="btn">Play All</button>
     <span id="curTime" class="time">0:00</span>
-    <input id="seek" type="range" min="0" max="100" value="0" style="flex:1"/>
+    <input id="seek" type="range" min="0" max="100" value="0" style="width:140px"/>
     <span id="dur" class="time">0:00</span>
     <input id="vol" type="range" min="0" max="1" step="0.01" value="1" style="width:110px">
+    <canvas id="viz" width="400"></canvas>
   </div>
 
   <!-- Startup overlay -->
@@ -125,9 +157,9 @@
           <p class="muted">Log in to create playlists and upload tracks. Admins can moderate any content. All audio is public.</p>
           <ul>
             <li>🎧 Global library (teal & black)</li>
-            <li>🗂️ Personal playlists</li>
-            <li>💬 Comments on tracks</li>
-            <li>🛡️ Owner delete; admin override</li>
+            <li>🗂️ Personal & public playlists</li>
+            <li>💬 Comments, ♥ likes, profiles</li>
+            <li>🔗 Deep links & share</li>
           </ul>
         </div>
         <div class="heroCard">
@@ -139,7 +171,7 @@
             <button id="doSignup" class="btn">Create Account</button>
             <button id="continueGuest" class="btn ghost">Continue as Guest</button>
           </div>
-          <p class="muted" style="margin-top:10px">Tip: After login, use <strong>Admin</strong> to unlock moderator tools with the password.</p>
+          <p class="muted" style="margin-top:10px">Tip: Unlock <strong>Admin</strong> to moderate.</p>
         </div>
       </div>
     </div>
@@ -149,7 +181,6 @@
   <div id="pwModal" class="modal" role="dialog" aria-modal="true">
     <div class="panel">
       <h3>Unlock Admin</h3>
-      <p class="muted">Admins can delete any song or comment.</p>
       <div class="row" style="margin-top:10px">
         <input id="pw" type="password" class="input" placeholder="Password" style="flex:1">
         <button id="unlock" class="btn primary">Unlock</button>
@@ -190,13 +221,13 @@
       <div class="c-head">
         <img id="cThumb" alt="">
         <div style="flex:1;min-width:0">
-          <p id="cTitle" class="c-title"></p>
-          <p id="cArtist" class="c-artist"></p>
+          <p id="cTitle" class="title"></p>
+          <p id="cArtist" class="muted"></p>
         </div>
         <button id="cClose" class="btn">Close</button>
       </div>
       <div id="cList" class="clist" aria-live="polite"></div>
-      <form id="cForm" class="cform">
+      <form id="cForm">
         <input id="cName" class="input" placeholder="Your name (optional)">
         <input id="cBody" class="input" placeholder="Write a comment…" maxlength="500" required>
         <button id="cPost" class="btn primary" type="submit">Post</button>
@@ -207,13 +238,23 @@
   <!-- Playlists -->
   <div id="plModal" class="modal" role="dialog" aria-modal="true">
     <div class="panel">
-      <h3>Your Playlists</h3>
-      <div class="row" style="margin-top:6px">
-        <input id="plName" class="input" placeholder="New playlist name" style="flex:1">
-        <button id="plCreate" class="btn primary">Create</button>
-        <button id="plClose" class="btn">Close</button>
+      <h3>Playlists</h3>
+      <div class="tabs">
+        <button class="tab active" data-tab="mypl">My Playlists</button>
+        <button class="tab" data-tab="publicpl">Public</button>
       </div>
-      <div id="plList" class="plist"></div>
+      <div id="mypl">
+        <div class="row" style="margin-top:6px">
+          <input id="plName" class="input" placeholder="New playlist name" style="flex:1">
+          <label class="btn ghost">Public? <input id="plPublic" type="checkbox" style="margin-left:8px"></label>
+          <button id="plCreate" class="btn primary">Create</button>
+          <button id="plClose" class="btn">Close</button>
+        </div>
+        <div id="plList" class="plist"></div>
+      </div>
+      <div id="publicpl" style="display:none">
+        <div id="plPublicList" class="plist"></div>
+      </div>
     </div>
   </div>
 
@@ -226,12 +267,7 @@
         <button class="tab" data-tab="create">Create</button>
         <button class="tab" data-tab="my">My Themes</button>
       </div>
-
-      <div id="tab-browse">
-        <div class="muted">Public themes shared by everyone.</div>
-        <div id="themeGrid" class="themeGrid" style="margin-top:10px"></div>
-      </div>
-
+      <div id="tab-browse"><div class="muted">Public themes shared by everyone.</div><div id="themeGrid" class="themeGrid" style="margin-top:10px"></div></div>
       <div id="tab-create" style="display:none">
         <div class="row" style="gap:10px;flex-wrap:wrap">
           <input id="thName" class="input" placeholder="Theme name" style="flex:1;min-width:200px">
@@ -255,18 +291,69 @@
           <button id="themeClose" class="btn">Close</button>
         </div>
       </div>
+      <div id="tab-my" style="display:none"><div class="muted">Your themes.</div><div id="myThemeGrid" class="themeGrid" style="margin-top:10px"></div></div>
+    </div>
+  </div>
 
-      <div id="tab-my" style="display:none">
-        <div class="muted">Your themes.</div>
-        <div id="myThemeGrid" class="themeGrid" style="margin-top:10px"></div>
+  <!-- Profile Editor -->
+  <div id="profileModal" class="modal" role="dialog" aria-modal="true">
+    <div class="panel">
+      <h3>Your Profile</h3>
+      <div class="row" style="margin-top:8px">
+        <input id="pDisplay" class="input" placeholder="Display name" style="flex:1">
+        <input id="pAvatar" class="input" placeholder="Avatar URL (https://…)" style="flex:1">
+      </div>
+      <div class="row" style="margin-top:8px">
+        <input id="pBio" class="input" placeholder="Short bio" style="flex:1">
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="pSave" class="btn primary">Save</button>
+        <button id="pClose" class="btn">Close</button>
       </div>
     </div>
   </div>
 
+  <!-- Community Browser -->
+  <div id="communityModal" class="modal" role="dialog" aria-modal="true">
+    <div class="panel">
+      <h3>Community</h3>
+      <p class="muted">Discover profiles. Click to view uploads, playlists, and themes.</p>
+      <div id="communityList" class="plist-compact"></div>
+      <div class="row" style="margin-top:10px;justify-content:flex-end"><button id="communityClose" class="btn">Close</button></div>
+    </div>
+  </div>
+
+  <!-- Profile Viewer -->
+  <div id="profileView" class="modal" role="dialog" aria-modal="true">
+    <div class="panel">
+      <div class="profileHead">
+        <img id="pvAvatar" alt="">
+        <div style="flex:1;min-width:0">
+          <div class="row" style="justify-content:space-between">
+            <div>
+              <h3 id="pvName" style="margin:0 0 4px 0">User</h3>
+              <div id="pvBio" class="muted" style="max-width:600px"></div>
+            </div>
+            <div class="row">
+              <button id="pvCopyLink" class="btn ghost">Copy Link</button>
+              <button id="pvClose" class="btn">Close</button>
+            </div>
+          </div>
+          <div class="chipbar">
+            <button class="chip active" data-scope="songs">Songs</button>
+            <button class="chip" data-scope="playlists">Public Playlists</button>
+            <button class="chip" data-scope="themes">Themes</button>
+          </div>
+        </div>
+      </div>
+      <div id="pvContent" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+  <button id="queueBtn" class="btn ghost queueBtn" style="display:none">Queue (0)</button>
   <button id="uploadFab" class="btn primary adminFab" style="display:none">Upload</button>
   <div id="toast" class="toast"></div>
 
-  <!-- Supabase client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 /* === CONFIG === */
@@ -276,40 +363,35 @@ const PASSWORD = "intelz";
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 
-/* === UI refs === */
+/* === Refs === */
 const $ = s => document.querySelector(s);
-const grid = $('#grid'), search = $('#search'), statusPill = $('#status');
+const grid = $('#grid'), search = $('#search'), statusPill = $('#status'), avatarImg = $('#avatar'), viewing = $('#viewing');
 const adminBtn = $('#adminBtn'), authBtn = $('#authBtn'), logoutBtn = $('#logoutBtn');
-const playlistsBtn = $('#playlistsBtn'), plModal = $('#plModal'), plName = $('#plName'), plCreate = $('#plCreate'), plList = $('#plList'), plClose = $('#plClose');
+const communityBtn = $('#communityBtn'), communityModal = $('#communityModal'), communityList = $('#communityList'), communityClose = $('#communityClose');
+const playlistsBtn = $('#playlistsBtn'), plModal = $('#plModal'), plName = $('#plName'), plPublic = $('#plPublic'), plCreate = $('#plCreate'), plList = $('#plList'), plClose = $('#plClose');
+const plPublicList = $('#plPublicList');
+const plTabs = () => plModal.querySelectorAll('.tab'); const myplSection = $('#mypl'), publicplSection = $('#publicpl');
 
-const themeBtn = $('#themeBtn'), themeModal = $('#themeModal');
-const tabBtns = () => themeModal.querySelectorAll('.tab');
+const themeBtn = $('#themeBtn'), themeModal = $('#themeModal'), themeTabs = () => themeModal.querySelectorAll('.tab');
 const tabBrowse = $('#tab-browse'), tabCreate = $('#tab-create'), tabMy = $('#tab-my');
 const themeGrid = $('#themeGrid'), myThemeGrid = $('#myThemeGrid');
 
-const thName = $('#thName');
-const tBg = $('#tBg'), tBg2 = $('#tBg2'), tCard = $('#tCard'), tText = $('#tText'), tMuted = $('#tMuted'), tBorder = $('#tBorder'), tAccent = $('#tAccent'), tAccent2 = $('#tAccent2');
-const fadeSeconds = $('#fadeSeconds'), fadeAmount = $('#fadeAmount');
-const thPreview = $('#thPreview'), thSaveLocal = $('#thSaveLocal'), thPublish = $('#thPublish'); 
-
 const start = $('#start'), emailIn = $('#email'), pwIn = $('#password'), doLogin = $('#doLogin'), doSignup = $('#doSignup'), continueGuest = $('#continueGuest');
+const pwModal = $('#pwModal'), pwInput = $('#pw'), unlockBtn = $('#unlock'), cancelPw = $('#cancelPw');
 
-const pwModal = $('#pwModal'), upModal = $('#upModal'), cModal = $('#cModal');
-const pwInput = $('#pw'), unlockBtn = $('#unlock'), cancelPw = $('#cancelPw');
-
-const drop = $('#drop'), audioInput = $('#audioInput');
-const titleIn = $('#titleIn'), artistIn = $('#artistIn');
-const thumbUrlIn = $('#thumbUrlIn'), thumbFileIn = $('#thumbFileIn');
-const prog = $('#prog'), meta = $('#meta'), durProbe = $('#durProbe');
-const saveBtn = $('#save'), cancelUpload = $('#cancelUpload');
+const upModal = $('#upModal'), drop = $('#drop'), audioInput = $('#audioInput'), titleIn = $('#titleIn'), artistIn = $('#artistIn'), thumbUrlIn = $('#thumbUrlIn'), thumbFileIn = $('#thumbFileIn'), prog = $('#prog'), meta = $('#meta'), durProbe = $('#durProbe'), saveBtn = $('#save'), cancelUpload = $('#cancelUpload');
 
 const toastEl = $('#toast');
-const playBtn = $('#playPause'), seek = $('#seek'), vol = $('#vol'), addToPl = $('#addToPl');
-const curTimeEl = $('#curTime'), durEl = $('#dur');
-const pthumb = $('#pthumb'), ptitle = $('#ptitle'), partist = $('#partist');
+const playBtn = $('#playPause'), nextBtn = $('#next'), prevBtn = $('#prev'), seek = $('#seek'), vol = $('#vol'), addToPl = $('#addToPl'), addToQueueBtn = $('#addToQueue'), playAllBtn = $('#playAll'), queueBtn = $('#queueBtn');
+const shuffleBtn = $('#shuffle'), repeatBtn = $('#repeat');
+const curTimeEl = $('#curTime'), durEl = $('#dur'); const pthumb = $('#pthumb'), ptitle = $('#ptitle'), partist = $('#partist');
+const viz = $('#viz');
 
-const cThumb = $('#cThumb'), cTitle = $('#cTitle'), cArtist = $('#cArtist');
-const cList = $('#cList'), cForm = $('#cForm'), cName = $('#cName'), cBody = $('#cBody'), cClose = $('#cClose');
+const cModal = $('#cModal'), cThumb = $('#cThumb'), cTitle = $('#cTitle'), cArtist = $('#cArtist'), cList = $('#cList'), cForm = $('#cForm'), cName = $('#cName'), cBody = $('#cBody'), cClose = $('#cClose');
+
+const profileBtn = $('#profileBtn'), profileModal = $('#profileModal'), pDisplay = $('#pDisplay'), pAvatar = $('#pAvatar'), pBio = $('#pBio'), pSave = $('#pSave'), pClose = $('#pClose');
+
+const profileView = $('#profileView'), pvAvatar = $('#pvAvatar'), pvName = $('#pvName'), pvBio = $('#pvBio'), pvContent = $('#pvContent'), pvClose = $('#pvClose'), pvCopyLink = $('#pvCopyLink');
 
 /* === State === */
 let ADMIN_ENABLED = false;
@@ -319,17 +401,65 @@ let seeking=false;
 let currentTrack = null;
 let currentCommentsPoll = null;
 let user = null;
+let userLikes = new Set();
+let likesCount = {};
+let currentView = { type:'all', id:null, name:'All Tracks' };
+let currentProfile = null; // {uid, display_name, avatar_url, bio}
 const audio = new Audio(); audio.preload='metadata'; audio.crossOrigin='anonymous'; vol.value=1;
 
-/* === STARTUP BACKGROUND MUSIC === */
+/* === WebAudio Visualizer === */
+let ctx=null, srcNode=null, analyser=null, vizTimer=null;
+function setupAnalyser(){
+  try{
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (srcNode) srcNode.disconnect();
+    if (analyser) analyser.disconnect();
+    srcNode = ctx.createMediaElementSource(audio);
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = 256;
+    srcNode.connect(analyser); analyser.connect(ctx.destination);
+  }catch(e){ /* ignore if blocked */ }
+}
+function startViz(){
+  if (!analyser) return;
+  const c = viz, x = c.getContext('2d');
+  const W = c.clientWidth|0, H = c.clientHeight|0; c.width=W; c.height=H;
+  const buf = new Uint8Array(analyser.frequencyBinCount);
+  if (vizTimer) cancelAnimationFrame(vizTimer);
+  const draw = () => {
+    analyser.getByteFrequencyData(buf);
+    x.clearRect(0,0,W,H);
+    const n = 40;
+    const step = Math.floor(buf.length / n);
+    for (let i=0;i<n;i++){
+      const v = buf[i*step]/255;
+      const h = Math.max(2, v * H);
+      const bw = (W/n)-2;
+      x.fillStyle = i%2 ? getComputedStyle(document.documentElement).getPropertyValue('--accent') : getComputedStyle(document.documentElement).getPropertyValue('--accent-2');
+      x.fillRect(i*(bw+2), H-h, bw, h);
+    }
+    vizTimer = requestAnimationFrame(draw);
+  };
+  vizTimer = requestAnimationFrame(draw);
+}
+
+/* === Queue / Playback === */
+let QUEUE = []; let QINDEX = -1; let SHUFFLE=false; let REPEAT=false;
+function setQueue(ids, startIndex=0){ QUEUE = ids.slice(); if (SHUFFLE) shuffleArray(QUEUE); QINDEX = Math.max(0, startIndex); queueBtn.style.display='inline-flex'; updateQueueBadge(); if (ids.length) playById(QUEUE[QINDEX]); }
+function addToQueue(id){ QUEUE.push(id); updateQueueBadge(); toast('Added to queue'); }
+function updateQueueBadge(){ queueBtn.textContent = `Queue (${Math.max(0, QUEUE.length - Math.max(0,QINDEX))})`; }
+function playNext(){ if (QINDEX < 0) return; if (QINDEX + 1 < QUEUE.length){ QINDEX++; playById(QUEUE[QINDEX]); updateQueueBadge(); } else if (REPEAT){ QINDEX = 0; playById(QUEUE[QINDEX]); } }
+function playPrev(){ if (QINDEX > 0){ QINDEX--; playById(QUEUE[QINDEX]); updateQueueBadge(); } }
+queueBtn.addEventListener('click', ()=>{ if (!QUEUE.length) return toast('Queue empty'); alert(`Up next:\n\n${QUEUE.slice(Math.max(0,QINDEX+1)).map(id=>{ const t=TRACKS.find(x=>x.id===id); return t?`${t.title} — ${t.artist}`:id; }).join('\n') || '—'}`); });
+
+/* === Startup BGM === */
 const BGM_URL = "https://bashomg.github.io/waveeAmb.mp3";
 const bgm = new Audio(BGM_URL); bgm.loop = true; bgm.volume = 0.05; bgm.preload = 'auto';
-function tryPlayBgm(){ bgm.play().catch(()=>{}); }
-document.addEventListener('DOMContentLoaded', tryPlayBgm);
-if (start) { const unlockBgm = () => { try{ bgm.volume=0.05; bgm.play(); }catch{} start.removeEventListener('pointerdown', unlockBgm); }; start.addEventListener('pointerdown', unlockBgm); }
+document.addEventListener('DOMContentLoaded', ()=> bgm.play().catch(()=>{}));
+if (start){ const unlockBgm = () => { try { bgm.play(); } catch {} start.removeEventListener('pointerdown', unlockBgm); }; start.addEventListener('pointerdown', unlockBgm); }
 function stopBgm(){ try { bgm.pause(); bgm.currentTime = 0; } catch {} }
 
-/* === Dynamic fading background === */
+/* === Dynamic fade === */
 let fadeTimer=null, fadeTick=0;
 function applyFadeTimer(){
   if (fadeTimer) clearInterval(fadeTimer);
@@ -344,62 +474,92 @@ function applyFadeTimer(){
 }
 applyFadeTimer();
 
-/* === Auth === */
+/* === Auth & Profile === */
 async function refreshUser(){
   const { data: { user: u } } = await sb.auth.getUser();
   user = u || null;
   statusPill.textContent = user ? (user.email || 'User') : 'Guest';
   authBtn.style.display = user ? 'none' : 'inline-flex';
   logoutBtn.style.display = user ? 'inline-flex' : 'none';
-  uploadFab.style.display = user ? 'inline-flex' : (ADMIN_ENABLED?'inline-flex':'none');
+  $('#uploadFab').style.display = user || ADMIN_ENABLED ? 'inline-flex' : 'none';
+  avatarImg.style.display = 'none';
+  if (user){
+    await sb.from('profiles').upsert({ uid:user.id }, { onConflict:'uid' });
+    const { data } = await sb.from('profiles').select('*').eq('uid', user.id).single();
+    if (data?.avatar_url){ avatarImg.src = data.avatar_url; avatarImg.style.display='inline-block'; }
+    pDisplay.value = data?.display_name || ''; pAvatar.value = data?.avatar_url || ''; pBio.value = data?.bio || '';
+    await loadUserLikes();
+  } else {
+    userLikes = new Set();
+  }
   render();
 }
+profileBtn.addEventListener('click', ()=>{ if (!user) return toast('Login to edit profile'); profileModal.classList.add('open'); });
+pClose.addEventListener('click', ()=> profileModal.classList.remove('open'));
+pSave.addEventListener('click', async ()=>{
+  if (!user) return;
+  const payload = { uid:user.id, display_name:pDisplay.value.trim()||null, avatar_url:pAvatar.value.trim()||null, bio:pBio.value.trim()||null, updated_at:new Date().toISOString() };
+  const { error } = await sb.from('profiles').upsert(payload).select().single();
+  if (error) return toast('Save failed: '+error.message);
+  if (payload.avatar_url){ avatarImg.src = payload.avatar_url; avatarImg.style.display='inline-block'; }
+  toast('Profile saved'); profileModal.classList.remove('open');
+});
+
+/* Auth buttons */
 doLogin.addEventListener('click', async ()=>{
-  try{
-    const { error } = await sb.auth.signInWithPassword({ email: emailIn.value.trim(), password: pwIn.value });
-    if (error) throw error;
+  try{ const { error } = await sb.auth.signInWithPassword({ email: emailIn.value.trim(), password: pwIn.value }); if (error) throw error;
     start.style.display='none'; stopBgm(); toast('Welcome back!'); refreshUser();
   }catch(e){ toast('Login failed: '+e.message); }
 });
 doSignup.addEventListener('click', async ()=>{
-  try{
-    const { error } = await sb.auth.signUp({ email: emailIn.value.trim(), password: pwIn.value });
-    if (error) throw error;
+  try{ const { error } = await sb.auth.signUp({ email: emailIn.value.trim(), password: pwIn.value }); if (error) throw error;
     start.style.display='none'; stopBgm(); toast('Account created!'); refreshUser();
   }catch(e){ toast('Signup failed: '+e.message); }
 });
 continueGuest.addEventListener('click', ()=>{ start.style.display='none'; stopBgm(); toast('Browsing as guest'); });
-authBtn.addEventListener('click', ()=>{ start.style.display='grid'; tryPlayBgm(); });
-logoutBtn.addEventListener('click', async ()=>{ await sb.auth.signOut(); ADMIN_ENABLED=false; statusPill.textContent='Guest'; uploadFab.style.display='none'; toast('Logged out'); refreshUser(); });
+authBtn.addEventListener('click', ()=>{ start.style.display='grid'; bgm.play().catch(()=>{}); });
+logoutBtn.addEventListener('click', async ()=>{ await sb.auth.signOut(); ADMIN_ENABLED=false; statusPill.textContent='Guest'; $('#uploadFab').style.display='none'; toast('Logged out'); refreshUser(); });
 
-/* Admin unlock */
+/* Admin */
 adminBtn.addEventListener('click', ()=>{ pwModal.classList.add('open'); pwInput.value=''; pwInput.focus(); });
 cancelPw.addEventListener('click', ()=> pwModal.classList.remove('open'));
 unlockBtn.addEventListener('click', ()=>{
   if(pwInput.value===PASSWORD){
-    ADMIN_ENABLED=true;
-    pwModal.classList.remove('open');
-    uploadFab.style.display='inline-flex';
-    statusPill.textContent = (user?'Admin • '+(user.email||'user'):'Admin');
-    toast('Admin unlocked'); render();
+    ADMIN_ENABLED=true; pwModal.classList.remove('open'); $('#uploadFab').style.display='inline-flex';
+    statusPill.textContent = (user?'Admin • '+(user.email||'user'):'Admin'); toast('Admin unlocked'); render();
   } else { toast('Wrong password'); }
 });
 
-/* Tracks */
+/* Tracks + likes */
 async function loadTracks(){
   const { data, error } = await sb.from('tracks').select('*').order('created_at',{ascending:false}).limit(500);
   if (error) { console.error(error); return; }
-  TRACKS = data || []; render();
+  TRACKS = data || [];
+  await loadLikesCount();
+  render();
 }
-loadTracks(); setInterval(loadTracks, 5000);
-
+async function loadUserLikes(){
+  if (!user){ userLikes = new Set(); return; }
+  const { data } = await sb.from('likes').select('track_id').eq('user_uid', user.id).limit(10000);
+  userLikes = new Set((data||[]).map(r=>r.track_id));
+}
+async function loadLikesCount(){
+  const { data } = await sb.from('likes').select('track_id');
+  likesCount = {};
+  (data||[]).forEach(r=>{ likesCount[r.track_id]=(likesCount[r.track_id]||0)+1; });
+}
 function canDeleteTrack(t){ if (ADMIN_ENABLED) return true; if (!user) return false; return t.owner_uid && t.owner_uid === user.id; }
 
-/* Render */
+/* Render cards */
 function render(){
+  viewing.textContent = `Now Viewing – ${currentView.name || 'All Tracks'}`;
   const q = FILTER.trim().toLowerCase();
   const items = !q ? TRACKS : TRACKS.filter(t => (t.title||'').toLowerCase().includes(q) || (t.artist||'').toLowerCase().includes(q));
-  grid.innerHTML = items.map(t => `
+
+  grid.innerHTML = items.map(t => {
+    const liked = user && userLikes.has(t.id);
+    const count = likesCount[t.id] || 0;
+    return `
     <article class="card" data-id="${t.id}">
       <img class="thumb" alt="" src="${t.thumbnail_url || placeholder(t.title,t.artist)}">
       <div class="meta">
@@ -409,46 +569,91 @@ function render(){
           <button class="btn play" data-id="${t.id}">Play</button>
           <button class="btn ghost comments" data-id="${t.id}">Comments</button>
           ${user ? `<button class="btn ghost addpl" data-id="${t.id}">Add to Playlist</button>` : ''}
+          <button class="btn ghost like ${liked?'primary':''}" data-id="${t.id}">♥ <span class="lc">${count}</span></button>
+          <button class="btn ghost addq" data-id="${t.id}">Queue</button>
+          <button class="btn ghost up" data-owner="${t.owner_uid||''}" ${t.owner_uid?'':'disabled'}>Uploader</button>
+          <button class="btn ghost share" data-id="${t.id}">Share</button>
           ${canDeleteTrack(t) ? `<button class="btn danger del" data-id="${t.id}">Delete</button>` : ''}
         </div>
       </div>
-    </article>
-  `).join('') || `<p style="color:var(--accent-2);padding:18px">No tracks yet. Login to upload the first one.</p>`;
+    </article>`; }).join('') || `<p style="color:var(--accent-2);padding:18px">No tracks yet. Login to upload the first one.</p>`;
 }
+
+/* Grid click handlers */
 grid.addEventListener('click', async (e)=>{
   const pid = e.target.closest('.play')?.dataset.id;
   const cid = e.target.closest('.comments')?.dataset.id;
   const did = e.target.closest('.del')?.dataset.id;
   const aid = e.target.closest('.addpl')?.dataset.id;
-  if (pid) playById(pid);
+  const qid = e.target.closest('.addq')?.dataset.id;
+  const lid = e.target.closest('.like')?.dataset.id;
+  const owner = e.target.closest('.up')?.dataset.owner;
+  const shareId = e.target.closest('.share')?.dataset.id;
+
+  if (pid) { playById(pid, true); setHash(`track/${pid}`); }
   if (cid) openComments(cid);
   if (did) deleteTrack(did);
   if (aid) { currentTrack = TRACKS.find(x=>x.id===aid); openPlaylists(); }
+  if (qid) { addToQueue(qid); }
+  if (lid) { toggleLike(lid, e.target.closest('.like')); }
+  if (owner) { openProfileByUid(owner); }
+  if (shareId) copyShareLink(`track/${shareId}`);
 });
 search.addEventListener('input', ()=>{ FILTER = search.value; render(); });
 
-/* Player */
-async function playById(id){
+/* Likes toggle */
+async function toggleLike(id, btnEl){
+  if (!user) return toast('Login to like');
+  try{
+    if (userLikes.has(id)){
+      const { error } = await sb.from('likes').delete().eq('user_uid', user.id).eq('track_id', id);
+      if (error) throw error;
+      userLikes.delete(id);
+      likesCount[id] = Math.max(0, (likesCount[id]||1) - 1);
+    } else {
+      const { error } = await sb.from('likes').insert({ user_uid:user.id, track_id:id });
+      if (error) throw error;
+      userLikes.add(id);
+      likesCount[id] = (likesCount[id]||0) + 1;
+    }
+    const lc = btnEl.querySelector('.lc'); if (lc) lc.textContent = likesCount[id]||0;
+    btnEl.classList.toggle('primary', userLikes.has(id));
+  }catch(err){ console.error(err); toast('Like failed: '+err.message); }
+}
+
+/* Player + queue */
+async function playById(id, setQueueFromView=false){
   const t = TRACKS.find(x=>x.id===id); if(!t) return;
   currentTrack = t;
-  audio.src = t.audio_url;
   pthumb.src = t.thumbnail_url || placeholder(t.title,t.artist);
   ptitle.textContent = t.title || 'Untitled';
   partist.textContent = t.artist || 'Unknown';
-  audio.play().catch(()=>{}); playBtn.textContent='Pause';
+  audio.src = t.audio_url;
+  audio.play().then(()=>{ try{ if(ctx?.state==='suspended') ctx.resume(); setupAnalyser(); startViz(); }catch{} }).catch(()=>{});
+  playBtn.textContent='Pause';
+  if (setQueueFromView){
+    const visibleIds = Array.from(grid.querySelectorAll('.card')).map(el=>el.dataset.id);
+    let startIndex = visibleIds.indexOf(id);
+    if (startIndex<0) startIndex=0;
+    setQueue(visibleIds, startIndex);
+  }
 }
-playBtn.addEventListener('click', ()=>{
-  if(!audio.src){ const f=TRACKS[0]; if(f) playById(f.id); return; }
-  if (audio.paused) audio.play(); else audio.pause();
-});
-audio.addEventListener('play', ()=> playBtn.textContent='Pause');
+playBtn.addEventListener('click', ()=>{ if(!audio.src){ const f=TRACKS[0]; if(f) playById(f.id, true); return; } if (audio.paused) audio.play(); else audio.pause(); });
+nextBtn.addEventListener('click', playNext);
+prevBtn.addEventListener('click', playPrev);
+shuffleBtn.addEventListener('click', ()=>{ SHUFFLE=!SHUFFLE; shuffleBtn.classList.toggle('primary', SHUFFLE); toast(SHUFFLE?'Shuffle on':'Shuffle off'); });
+repeatBtn.addEventListener('click', ()=>{ REPEAT=!REPEAT; repeatBtn.classList.toggle('primary', REPEAT); toast(REPEAT?'Repeat on':'Repeat off'); });
+audio.addEventListener('play', ()=>{ playBtn.textContent='Pause'; try{ if(ctx && ctx.state==='suspended') ctx.resume(); }catch{} });
 audio.addEventListener('pause', ()=> playBtn.textContent='Play');
 audio.addEventListener('loadedmetadata', ()=>{ seek.max=Math.max(1,Math.floor(audio.duration||0)); durEl.textContent=fmt(audio.duration||0); });
 audio.addEventListener('timeupdate', ()=>{ if(!seeking) seek.value=Math.floor(audio.currentTime); curTimeEl.textContent=fmt(audio.currentTime); });
+audio.addEventListener('ended', playNext);
 seek.addEventListener('input', ()=> seeking=true);
 seek.addEventListener('change', ()=>{ audio.currentTime=+seek.value; seeking=false; });
 vol.addEventListener('input', ()=> audio.volume=+vol.value);
 addToPl.addEventListener('click', ()=>{ if(!user) return toast('Login to use playlists'); if(!currentTrack) return toast('Play a track first'); openPlaylists(); });
+addToQueueBtn.addEventListener('click', ()=>{ if (!currentTrack) return toast('Play something first'); addToQueue(currentTrack.id); });
+playAllBtn.addEventListener('click', ()=>{ const ids = Array.from(grid.querySelectorAll('.card')).map(el=>el.dataset.id); if (!ids.length) return toast('No tracks'); setQueue(ids, 0); });
 
 /* Upload */
 const uploadFab = $('#uploadFab');
@@ -498,13 +703,10 @@ saveBtn.addEventListener('click', async ()=>{
     }
 
     prog.value=75; meta.textContent='Saving metadata…';
-    const ins = await sb.from('tracks').insert({
-      id, title, artist, audio_url: audioUrl, thumbnail_url: thumbnailUrl, duration: pendingAudio.duration|0, owner_uid: user.id
-    }).select().single();
+    const ins = await sb.from('tracks').insert({ id, title, artist, audio_url: audioUrl, thumbnail_url: thumbnailUrl, duration: pendingAudio.duration|0, owner_uid: user.id }).select().single();
     if (ins.error) throw new Error('Insert track: ' + ins.error.message);
 
-    prog.value=100; meta.textContent='Done!';
-    resetUploadUI(true); toast('Track uploaded'); loadTracks();
+    prog.value=100; meta.textContent='Done!'; resetUploadUI(true); toast('Track uploaded'); loadTracks();
   }catch(err){ console.error(err); toast(String(err.message||err)); }
 });
 function resetUploadUI(clear=false){
@@ -525,7 +727,7 @@ async function deleteTrack(id){
       const del = await sb.from('tracks').delete().eq('id', id);
       if (del.error) throw new Error('Delete track: ' + del.error.message);
     }
-    const card = document.querySelector(`.card[data-id="${id}"]`); if (card) card.remove();
+    document.querySelector(`.card[data-id="${id}"]`)?.remove();
     TRACKS = TRACKS.filter(x=>x.id!==id); toast('Deleted');
     await sb.storage.from('audio').remove([`audio/${id}.mp3`,`audio/${id}.wav`,`thumbs/${id}.png`]);
     loadTracks();
@@ -540,8 +742,7 @@ async function openComments(trackId){
   cTitle.textContent = t.title || 'Untitled';
   cArtist.textContent = t.artist || 'Unknown';
   cBody.value = ''; cName.value = '';
-  cModal.classList.add('open');
-  await loadComments(trackId);
+  cModal.classList.add('open'); await loadComments(trackId);
   if (currentCommentsPoll) clearInterval(currentCommentsPoll);
   currentCommentsPoll = setInterval(()=>loadComments(trackId), 5000);
 }
@@ -553,11 +754,10 @@ async function loadComments(trackId){
     <div class="citem" data-cid="${c.id}">
       <div style="flex:1;min-width:0">
         <div class="cmeta">${esc(c.author||'Anon')} • ${new Date(c.created_at).toLocaleString()}</div>
-        <div class="cbody">${esc(c.body)}</div>
+        <div>${esc(c.body)}</div>
       </div>
       ${ADMIN_ENABLED ? `<button class="btn danger cdel" data-cid="${c.id}">Delete</button>` : ''}
-    </div>
-  `).join('') || `<p class="muted">No comments yet. Be the first!</p>`;
+    </div>`).join('') || `<p class="muted">No comments yet. Be the first!</p>`;
 }
 cList.addEventListener('click', async (e)=>{
   const cid = e.target.closest('.cdel')?.dataset.cid; if (!cid) return;
@@ -569,79 +769,119 @@ cList.addEventListener('click', async (e)=>{
 cForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
   if (!currentTrack) return;
+  if (!user) { toast('Login to comment'); return; }
   const author = cName.value.trim() || (user?.email || null);
   const body = cBody.value.trim(); if (!body) return;
   try{ const { error } = await sb.from('comments').insert({ track_id: currentTrack.id, author, body }); if (error) throw error; cBody.value=''; toast('Posted'); loadComments(currentTrack.id); }
-  catch(err){ console.error(err); toast('Could not post comment'); }
+  catch(err){ console.error(err); toast('Could not post comment: '+err.message); }
 });
 
 /* Playlists */
 playlistsBtn.addEventListener('click', ()=> openPlaylists());
 plClose.addEventListener('click', ()=> plModal.classList.remove('open'));
+plTabs().forEach(b=>b.addEventListener('click',()=>{
+  plTabs().forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const tab=b.dataset.tab;
+  myplSection.style.display = tab==='mypl' ? 'block' : 'none';
+  publicplSection.style.display = tab==='publicpl' ? 'block' : 'none';
+}));
 plCreate.addEventListener('click', async ()=>{
   if (!user) return toast('Login first');
   const name = plName.value.trim(); if (!name) return;
-  try{ const ins = await sb.from('playlists').insert({ name, owner_uid: user.id }).select().single(); if (ins.error) throw ins.error; plName.value=''; toast('Playlist created'); loadPlaylists(); }
-  catch(err){ console.error(err); toast('Create failed'); }
+  try{
+    const ins = await sb.from('playlists').insert({ name, owner_uid: user.id, is_public: !!plPublic.checked }).select().single();
+    if (ins.error) throw ins.error;
+    plName.value=''; plPublic.checked=false; toast('Playlist created'); loadPlaylists(); loadPublicPlaylists();
+  }catch(err){ console.error(err); toast('Create failed: '+err.message); }
 });
-async function openPlaylists(){ if (!user){ toast('Login first'); return; } plModal.classList.add('open'); await loadPlaylists(); }
+async function openPlaylists(){ plModal.classList.add('open'); await loadPlaylists(); await loadPublicPlaylists(); }
 async function loadPlaylists(){
-  const { data, error } = await sb.from('playlists').select('id,name,created_at').eq('owner_uid', user.id).order('created_at',{ascending:false});
+  if (!user){ plList.innerHTML = `<p class="muted">Login to manage your playlists.</p>`; return; }
+  const { data, error } = await sb.from('playlists').select('id,name,is_public,created_at').eq('owner_uid', user.id).order('created_at',{ascending:false});
   if (error){ console.error(error); return; }
   const items = data||[];
   plList.innerHTML = items.map(p=>`
     <div class="pli" data-pl="${p.id}">
-      <div><strong>${esc(p.name)}</strong><br><small>${new Date(p.created_at).toLocaleString()}</small></div>
+      <div><strong>${esc(p.name)}</strong> ${p.is_public?'<span class="pill">Public</span>':''}<br><small>${new Date(p.created_at).toLocaleString()}</small></div>
       <div class="row">
         ${currentTrack ? `<button class="btn ghost addcur" data-pl="${p.id}">Add current</button>` : ''}
         <button class="btn ghost viewpl" data-pl="${p.id}">Open</button>
+        <button class="btn ghost sharepl" data-pl="${p.id}">Share</button>
         <button class="btn danger delpl" data-pl="${p.id}">Delete</button>
       </div>
-    </div>
-  `).join('') || `<p class="muted">No playlists yet. Create one above.</p>`;
+    </div>`).join('') || `<p class="muted">No playlists yet. Create one above.</p>`;
+}
+async function loadPublicPlaylists(){
+  const { data, error } = await sb.from('playlists').select('id,name,created_at').eq('is_public', true).order('created_at',{ascending:false}).limit(100);
+  if (error){ console.error(error); return; }
+  const items = data||[];
+  plPublicList.innerHTML = items.map(p=>`
+    <div class="pli" data-pl="${p.id}">
+      <div><strong>${esc(p.name)}</strong> <span class="pill">Public</span><br><small>${new Date(p.created_at).toLocaleString()}</small></div>
+      <div class="row">
+        <button class="btn ghost viewpub" data-pl="${p.id}" data-name="${esc(p.name)}">Open</button>
+        <button class="btn ghost sharepl" data-pl="${p.id}">Share</button>
+      </div>
+    </div>`).join('') || `<p class="muted">No public playlists yet.</p>`;
 }
 plList.addEventListener('click', async (e)=>{
-  const plId = e.target.closest('.addcur')?.dataset.pl || e.target.closest('.viewpl')?.dataset.pl || e.target.closest('.delpl')?.dataset.pl;
+  const elAdd = e.target.closest('.addcur'); const elView = e.target.closest('.viewpl');
+  const elDel = e.target.closest('.delpl'); const elShare = e.target.closest('.sharepl');
+  const plId = (elAdd||elView||elDel||elShare)?.dataset.pl;
   if (!plId) return;
-  if (e.target.closest('.addcur')){
+  if (elAdd){
     if (!currentTrack) return; 
     try{ const ins = await sb.from('playlist_items').insert({ playlist_id: plId, track_id: currentTrack.id }); if (ins.error) throw ins.error; toast('Added to playlist'); }
-    catch(err){ console.error(err); toast('Add failed'); }
-  } else if (e.target.closest('.viewpl')){
-    try{
-      const { data, error } = await sb.from('playlist_items').select('track_id, tracks(*)').eq('playlist_id', plId).order('added_at',{ascending:true});
-      if (error) throw error;
-      const rows = data||[];
-      TRACKS = rows.map(r=>r.tracks).filter(Boolean);
-      render(); plModal.classList.remove('open'); toast('Viewing playlist');
-    }catch(err){ console.error(err); toast('Open failed'); }
-  } else if (e.target.closest('.delpl')){
+    catch(err){ console.error(err); toast('Add failed: '+err.message); }
+  } else if (elView){
+    openPlaylistView(plId);
+  } else if (elDel){
     if (!confirm('Delete this playlist?')) return;
     try{ const del = await sb.from('playlists').delete().eq('id', plId); if (del.error) throw del.error; toast('Playlist deleted'); loadPlaylists(); }
-    catch(err){ console.error(err); toast('Delete failed'); }
+    catch(err){ console.error(err); toast('Delete failed: '+err.message); }
+  } else if (elShare){
+    copyShareLink(`playlist/${plId}`);
   }
 });
+plPublicList.addEventListener('click', (e)=>{
+  const plId = e.target.closest('.viewpub')?.dataset.pl;
+  const name = e.target.closest('.viewpub')?.dataset.name || 'Playlist';
+  const shareBtn = e.target.closest('.sharepl');
+  if (plId && e.target.closest('.viewpub')) openPlaylistView(plId, name);
+  if (shareBtn) copyShareLink(`playlist/${shareBtn.dataset.pl}`);
+});
+async function openPlaylistView(plId, nameOverride=null){
+  try{
+    const { data, error } = await sb.from('playlist_items').select('track_id, tracks(*)').eq('playlist_id', plId).order('added_at',{ascending:true});
+    if (error) throw error;
+    const rows = data||[];
+    const listTracks = rows.map(r=>r.tracks).filter(Boolean);
+    if (!listTracks.length) return toast('Playlist is empty');
+    TRACKS = listTracks; currentView = {type:'playlist', id:plId, name: nameOverride || 'Playlist'};
+    render(); plModal.classList.remove('open'); toast('Viewing playlist');
+    const ids = listTracks.map(t=>t.id);
+    setQueue(ids, 0);
+    setHash(`playlist/${plId}`);
+  }catch(err){ console.error(err); toast('Open failed: '+err.message); }
+}
 
-/* === THEME LIBRARY === */
+/* === Theme Library === */
 themeBtn.addEventListener('click', ()=>{ themeModal.classList.add('open'); loadPublicThemes(); loadMyThemes(); });
 themeModal.addEventListener('click', (e)=>{ if (e.target===themeModal) themeModal.classList.remove('open'); });
-
-tabBtns().forEach(b=>b.addEventListener('click',()=>{
-  tabBtns().forEach(x=>x.classList.remove('active'));
+themeTabs().forEach(b=>b.addEventListener('click',()=>{
+  themeTabs().forEach(x=>x.classList.remove('active'));
   b.classList.add('active');
   const name = b.dataset.tab;
   tabBrowse.style.display = name==='browse'?'block':'none';
   tabCreate.style.display = name==='create'?'block':'none';
   tabMy.style.display = name==='my'?'block':'none';
 }));
+const tBg = $('#tBg'), tBg2 = $('#tBg2'), tCard = $('#tCard'), tText = $('#tText'), tMuted = $('#tMuted'), tBorder = $('#tBorder'), tAccent = $('#tAccent'), tAccent2 = $('#tAccent2');
+const fadeSeconds = $('#fadeSeconds'), fadeAmount = $('#fadeAmount');
+const thName = $('#thName'), thPreview = $('#thPreview'), thSaveLocal = $('#thSaveLocal'), thPublish = $('#thPublish');
 
-function themeVarsFromInputs(){
-  return {
-    bg:tBg.value, bg2:tBg2.value, card:tCard.value, text:tText.value, muted:tMuted.value,
-    border:tBorder.value, accent:tAccent.value, accent2:tAccent2.value,
-    fade_amount: Number(fadeAmount.value||10), fade_seconds: Number(fadeSeconds.value||10)
-  };
-}
+function themeVarsFromInputs(){ return { bg:tBg.value, bg2:tBg2.value, card:tCard.value, text:tText.value, muted:tMuted.value, border:tBorder.value, accent:tAccent.value, accent2:tAccent2.value, fade_amount:Number(fadeAmount.value||10), fade_seconds:Number(fadeSeconds.value||10) }; }
 function applyTheme(vars){
   const root = document.documentElement.style;
   root.setProperty('--bg', vars.bg); root.setProperty('--bg2', vars.bg2); root.setProperty('--card', vars.card);
@@ -656,7 +896,6 @@ function applyTheme(vars){
 }
 function loadLocalTheme(){ const raw = localStorage.getItem('wavee_theme'); if(!raw) return; try{ applyTheme(JSON.parse(raw)); }catch{} }
 loadLocalTheme();
-
 thPreview.addEventListener('click', ()=> applyTheme(themeVarsFromInputs()));
 thSaveLocal.addEventListener('click', ()=>{ const v=themeVarsFromInputs(); localStorage.setItem('wavee_theme', JSON.stringify(v)); localStorage.setItem('wavee_fade_seconds', v.fade_seconds); localStorage.setItem('wavee_fade_amount', v.fade_amount); applyTheme(v); });
 thPublish.addEventListener('click', async ()=>{
@@ -667,13 +906,10 @@ thPublish.addEventListener('click', async ()=>{
     const ins = await sb.from('themes').insert({ owner_uid: user.id, name, vars, is_public: true }).select().single();
     if (ins.error) throw ins.error;
     toast('Theme published'); loadPublicThemes(); loadMyThemes();
-  }catch(err){ console.error(err); toast('Publish failed'); }
+  }catch(err){ console.error(err); toast('Publish failed: '+err.message); }
 });
-
 function themeCard(row, mine){
-  const v = row.vars||{};
-  const vars64 = btoa(JSON.stringify(v));
-  const showDelete = mine || ADMIN_ENABLED;
+  const v = row.vars||{}; const vars64 = btoa(JSON.stringify(v)); const showDelete = mine || ADMIN_ENABLED;
   return `
     <div class="tcard" data-id="${row.id}" data-vars="${vars64}">
       <div class="row" style="justify-content:space-between">
@@ -701,23 +937,19 @@ function themeCard(row, mine){
 function wireThemeCards(container, mine){
   container.querySelectorAll('.tcard').forEach(card=>{
     const id = card.dataset.id;
-    card.querySelector('.apply')?.addEventListener('click', async ()=>{
-      const v = JSON.parse(atob(card.dataset.vars||''));
-      applyTheme(v);
-    });
+    card.querySelector('.apply')?.addEventListener('click', ()=>{ const v = JSON.parse(atob(card.dataset.vars||'')); applyTheme(v); });
     const delBtn = card.querySelector('.del');
     if (delBtn){
       delBtn.addEventListener('click', async ()=>{
         if (!(mine || ADMIN_ENABLED)) return toast('No permission');
         if (!confirm('Delete this theme?')) return;
         const { error } = await sb.from('themes').delete().eq('id', id);
-        if (error){ toast('Delete failed'); return; }
+        if (error){ toast('Delete failed: '+error.message); return; }
         toast('Theme deleted'); loadPublicThemes(); loadMyThemes();
       });
     }
   });
 }
-
 async function loadPublicThemes(){
   const { data, error } = await sb.from('themes').select('id,name,vars,created_at').eq('is_public', true).order('created_at',{ascending:false}).limit(200);
   if (error){ console.error(error); return; }
@@ -732,7 +964,107 @@ async function loadMyThemes(){
   wireThemeCards(myThemeGrid, true);
 }
 
-/* Helpers */
+/* === Community === */
+communityBtn.addEventListener('click', ()=>{ communityModal.classList.add('open'); loadCommunity(); });
+communityClose.addEventListener('click', ()=> communityModal.classList.remove('open'));
+async function loadCommunity(){
+  const { data, error } = await sb.from('profiles').select('uid,display_name,avatar_url,bio,created_at').order('created_at',{ascending:false}).limit(200);
+  if (error){ console.error(error); return; }
+  const rows = (data||[]).filter(r => r.display_name || r.avatar_url || r.bio);
+  communityList.innerHTML = rows.map(p => `
+    <div class="pitem" data-uid="${p.uid}">
+      <img src="${p.avatar_url || 'https://avatars.githubusercontent.com/u/9919?s=200&v=4'}" alt="">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>${esc(p.display_name || p.uid.slice(0,8))}</strong>
+          <button class="btn ghost openpv" data-uid="${p.uid}">Open</button>
+        </div>
+        <small class="muted" title="${esc(p.bio||'')}">${esc((p.bio||'').slice(0,64))}</small>
+      </div>
+    </div>
+  `).join('') || `<p class="muted">No profiles yet.</p>`;
+  communityList.querySelectorAll('.openpv').forEach(b=> b.addEventListener('click', ()=> openProfileByUid(b.dataset.uid)));
+}
+
+/* === Profile Viewer === */
+async function openProfileByUid(uid){
+  try{
+    const { data: p } = await sb.from('profiles').select('*').eq('uid', uid).single();
+    if (!p) return toast('Profile not found');
+    currentProfile = p;
+    pvAvatar.src = p.avatar_url || 'https://avatars.githubusercontent.com/u/9919?s=200&v=4';
+    pvName.textContent = p.display_name || uid.slice(0,8);
+    pvBio.textContent = p.bio || '';
+    profileView.classList.add('open');
+    setHash(`profile/${uid}`);
+    setActiveChip('songs'); await loadProfileSongs(uid);
+    pvCopyLink.onclick = ()=> copyShareLink(`profile/${uid}`);
+  }catch(err){ console.error(err); toast('Open profile failed'); }
+}
+function setActiveChip(scope){
+  profileView.querySelectorAll('.chip').forEach(c=> c.classList.toggle('active', c.dataset.scope===scope));
+}
+profileView.addEventListener('click', (e)=>{
+  if (e.target===profileView) profileView.classList.remove('open');
+});
+pvClose.addEventListener('click', ()=> profileView.classList.remove('open'));
+profileView.querySelectorAll('.chip').forEach(ch => ch.addEventListener('click', async ()=>{
+  setActiveChip(ch.dataset.scope);
+  if (!currentProfile) return;
+  if (ch.dataset.scope==='songs') return loadProfileSongs(currentProfile.uid);
+  if (ch.dataset.scope==='playlists') return loadProfilePlaylists(currentProfile.uid);
+  if (ch.dataset.scope==='themes') return loadProfileThemes(currentProfile.uid);
+}));
+async function loadProfileSongs(uid){
+  const { data, error } = await sb.from('tracks').select('*').eq('owner_uid', uid).order('created_at',{ascending:false}).limit(200);
+  if (error){ console.error(error); return; }
+  pvContent.innerHTML = renderMiniGrid(data||[]);
+  wireMiniGrid();
+}
+async function loadProfilePlaylists(uid){
+  const { data, error } = await sb.from('playlists').select('id,name,created_at,is_public').eq('owner_uid', uid).eq('is_public', true).order('created_at',{ascending:false}).limit(200);
+  if (error){ console.error(error); return; }
+  const rows = data||[];
+  pvContent.innerHTML = rows.map(p=>`
+    <div class="pli" data-pl="${p.id}">
+      <div><strong>${esc(p.name)}</strong> <span class="pill">Public</span><br><small>${new Date(p.created_at).toLocaleString()}</small></div>
+      <div class="row">
+        <button class="btn ghost openpl" data-pl="${p.id}">Open</button>
+        <button class="btn ghost sharepl" data-pl="${p.id}">Share</button>
+      </div>
+    </div>`).join('') || `<p class="muted">No public playlists yet.</p>`;
+  pvContent.querySelectorAll('.openpl').forEach(b=> b.addEventListener('click', ()=> openPlaylistView(b.dataset.pl)));
+  pvContent.querySelectorAll('.sharepl').forEach(b=> b.addEventListener('click', ()=> copyShareLink(`playlist/${b.dataset.pl}`)));
+}
+async function loadProfileThemes(uid){
+  const { data, error } = await sb.from('themes').select('id,name,vars,created_at').eq('owner_uid', uid).order('created_at',{ascending:false}).limit(200);
+  if (error){ console.error(error); return; }
+  pvContent.innerHTML = (data||[]).map(r => themeCard(r, user && user.id===uid)).join('') || `<p class="muted">No themes yet.</p>`;
+  wireThemeCards(pvContent, user && user.id===uid);
+}
+/* helper to render small track cards inside profile */
+function renderMiniGrid(tracks){
+  if (!tracks.length) return `<p class="muted">No uploads yet.</p>`;
+  return `<div class="grid" style="padding:0">${tracks.map(t=>`
+    <article class="card" data-id="${t.id}">
+      <img class="thumb" alt="" src="${t.thumbnail_url || placeholder(t.title,t.artist)}">
+      <div class="meta">
+        <p class="title">${esc(t.title||'Untitled')}</p>
+        <p class="artist">${esc(t.artist||'Unknown')}</p>
+        <div class="row-tight">
+          <button class="btn play" data-id="${t.id}">Play</button>
+          <button class="btn ghost share" data-id="${t.id}">Share</button>
+        </div>
+      </div>
+    </article>
+  `).join('')}</div>`;
+}
+function wireMiniGrid(){
+  pvContent.querySelectorAll('.play').forEach(b=> b.addEventListener('click', ()=>{ playById(b.dataset.id,true); profileView.classList.remove('open'); }));
+  pvContent.querySelectorAll('.share').forEach(b=> b.addEventListener('click', ()=> copyShareLink(`track/${b.dataset.id}`)));
+}
+
+/* === Helpers === */
 function toast(msg, ms=2200){ toastEl.textContent=msg; toastEl.style.display='block'; setTimeout(()=>toastEl.style.display='none', ms); }
 function fmt(s){ s=Math.max(0,s|0); const m=(s/60)|0, r=(s%60)|0; return m+':' + (r<10?'0':'')+r; }
 function esc(s=''){ return s.replace(/[&<>\"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#039;' }[m])); }
@@ -752,25 +1084,35 @@ function placeholder(title,artist){
   return 'data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svg)));
 }
 function fileToDataURL(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); }); }
-function dataURLtoBlob(dataURL){
-  const [h,b] = dataURL.split(','); const mime = h.match(/:(.*?);/)[1];
-  const bin = atob(b); const len = bin.length; const arr = new Uint8Array(len);
-  for (let i=0;i<len;i++) arr[i]=bin.charCodeAt(i); return new Blob([arr], {type:mime});
+function dataURLtoBlob(dataURL){ const [h,b]=dataURL.split(','); const mime=h.match(/:(.*?);/)[1]; const bin=atob(b); const len=bin.length; const arr=new Uint8Array(len); for(let i=0;i<len;i++) arr[i]=bin.charCodeAt(i); return new Blob([arr], {type:mime}); }
+function hexToRgba(hex, a){ const h=hex.replace('#',''); const n=h.length===3?h.split('').map(c=>c+c).join(''):h; const r=parseInt(n.slice(0,2),16), g=parseInt(n.slice(2,4),16), b=parseInt(n.slice(4,6),16); return `rgba(${r}, ${g}, ${b}, ${a})`; }
+function shuffleArray(arr){ for(let i=arr.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [arr[i],arr[j]]=[arr[j],arr[i]]; } }
+function setHash(path){ try{ history.replaceState(null, '', '#'+path); }catch{} }
+function copyShareLink(path){ const url = location.origin + location.pathname + '#' + path; navigator.clipboard.writeText(url).then(()=> toast('Link copied')).catch(()=> toast('Copy failed')); }
+
+/* === Deep links === */
+window.addEventListener('hashchange', handleHash); function parseHash(){
+  const h = (location.hash||'').replace(/^#/,''); const [kind, id] = h.split('/'); return {kind, id};
 }
-function hexToRgba(hex, a){
-  const h = hex.replace('#',''); const n = h.length===3 ? h.split('').map(c=>c+c).join('') : h;
-  const r = parseInt(n.slice(0,2),16), g=parseInt(n.slice(2,4),16), b=parseInt(n.slice(4,6),16);
-  return `rgba(${r}, ${g}, ${b}, ${a})`;
+async function handleHash(){
+  const {kind, id} = parseHash(); if(!kind||!id) return;
+  if (kind==='track'){ const t = TRACKS.find(x=>x.id===id); if(!t) await loadTracks(); playById(id, true); }
+  if (kind==='playlist'){ openPlaylistView(id); }
+  if (kind==='profile'){ openProfileByUid(id); }
 }
 
 /* Shortcuts */
 window.addEventListener('keydown', e=>{
   if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
   if (e.code==='Slash' && !e.shiftKey){ e.preventDefault(); search.focus(); }
+  if (e.code==='ArrowRight' && e.shiftKey) playNext();
+  if (e.code==='ArrowLeft' && e.shiftKey) playPrev();
 });
 
-/* Start session */
+/* Init */
 sb.auth.getSession().then(()=>refreshUser());
+loadTracks(); setInterval(loadTracks, 6000);
+handleHash();
 </script>
 </body>
 </html>
